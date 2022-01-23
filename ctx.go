@@ -827,6 +827,10 @@ func (c *Ctx) ParamsInt(key string, defaultValue ...int) (int, error) {
 // Optionally, you could override the path.
 func (c *Ctx) Path(override ...string) string {
 	if len(override) != 0 && c.path != override[0] {
+		// Reset route and handler index
+		c.indexRoute = -1
+		c.indexHandler = len(c.route.Handlers)
+
 		// Set new path to context
 		c.pathOriginal = override[0]
 
